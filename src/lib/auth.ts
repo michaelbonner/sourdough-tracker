@@ -17,4 +17,8 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+  trustedOrigins: [
+		"https://*.bootpack.work",
+		"http://localhost:3000"
+	]
 });

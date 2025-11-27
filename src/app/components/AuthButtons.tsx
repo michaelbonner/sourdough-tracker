@@ -46,12 +46,12 @@ export const LoginForm = () => {
         }}
       >
         <div className="grid gap-2">
-          <Label htmlFor="email">Email</Label>
-          <Input name="email" type="email" id="email" required />
+          <Label htmlFor="login-email">Email</Label>
+          <Input name="email" type="email" id="login-email" required />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="password">Password</Label>
-          <Input name="password" type="password" id="password" required />
+          <Label htmlFor="login-password">Password</Label>
+          <Input name="password" type="password" id="login-password" required />
         </div>
         <div>
           <Button type="submit">Log in</Button>
@@ -83,16 +83,16 @@ export const SignUpForm = () => {
         }}
       >
         <div className="grid gap-2">
-          <Label htmlFor="name">Name</Label>
-          <Input name="name" type="text" id="name" required />
+          <Label htmlFor="signup-name">Name</Label>
+          <Input name="name" type="text" id="signup-name" required />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="email">Email</Label>
-          <Input name="email" type="email" id="email" required />
+          <Label htmlFor="signup-email">Email</Label>
+          <Input name="email" type="email" id="signup-email" required />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="password">Password</Label>
-          <Input name="password" type="password" id="password" required />
+          <Label htmlFor="signup-password">Password</Label>
+          <Input name="password" type="password" id="signup-password" required />
         </div>
         <div>
           <Button type="submit">Sign up</Button>
