@@ -1,7 +1,9 @@
+import "./globals.css";
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { AuthButtons } from "./components/AuthButtons";
-import "./globals.css";
+import { AuthButtons, LoginForm, SignUpForm } from "./components/AuthButtons";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,12 +31,14 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <header className="flex justify-between items-start px-4 py-2">
-          <span className="text-xl font-black uppercase tracking-tighter">
+          <Link
+            href="/"
+            className="text-xl font-black uppercase tracking-tighter"
+          >
             Sourdough Tracker
-          </span>
-          <nav>
-            <AuthButtons />
-          </nav>
+          </Link>
+
+          <AuthButtons />
         </header>
         {children}
       </body>

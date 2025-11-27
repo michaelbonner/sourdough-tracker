@@ -1,15 +1,15 @@
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
-import db from "@/index";
-import { startersTable, starterLogsTable } from "@/db/schema";
-import { eq, and, desc } from "drizzle-orm";
-import { redirect, notFound } from "next/navigation";
-import { addStarterLog } from "./actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Link from "next/link";
 import { Textarea } from "@/components/ui/textarea";
+import { starterLogsTable, startersTable } from "@/db/schema";
+import db from "@/index";
+import { auth } from "@/lib/auth";
+import { and, desc, eq } from "drizzle-orm";
+import { headers } from "next/headers";
+import Link from "next/link";
+import { notFound, redirect } from "next/navigation";
+import { addStarterLog } from "./actions";
 
 export default async function StarterDetailsPage({
   params,
@@ -96,7 +96,7 @@ export default async function StarterDetailsPage({
                   )}
                 </div>
                 {log.notes && (
-                  <div className="mt-2 text-sm text-zinc-600 border-t pt-2 mt-2">
+                  <div className="mt-2 text-sm text-zinc-600 border-t pt-2">
                     {log.notes}
                   </div>
                 )}
