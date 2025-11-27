@@ -28,7 +28,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <header className="flex justify-between items-center px-4 py-2">
+        <header className="flex justify-between items-start px-4 py-2">
           <span className="text-xl font-black uppercase tracking-tighter">
             Sourdough Tracker
           </span>
