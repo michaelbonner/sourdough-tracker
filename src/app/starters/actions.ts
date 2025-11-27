@@ -1,10 +1,10 @@
 "use server";
 
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
-import db from "@/index";
 import { startersTable } from "@/db/schema";
+import db from "@/index";
+import { auth } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 
 export async function createStarter(formData: FormData) {
   const session = await auth.api.getSession({

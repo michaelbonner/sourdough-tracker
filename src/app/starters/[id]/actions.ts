@@ -1,11 +1,11 @@
 "use server";
 
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
-import db from "@/index";
 import { starterLogsTable, startersTable } from "@/db/schema";
+import db from "@/index";
+import { auth } from "@/lib/auth";
 import { eq, and } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 
 export async function addStarterLog(starterId: number, formData: FormData) {
   const session = await auth.api.getSession({
@@ -20,10 +20,12 @@ export async function addStarterLog(starterId: number, formData: FormData) {
   const [starter] = await db
     .select()
     .from(startersTable)
-    .where(and(
+    .where(
+      and(
         eq(startersTable.id, starterId),
-        eq(startersTable.userId, session.user.id)
-    ));
+        eq(startersTable.userId, session.user.id),
+      ),
+    );
 
   if (!starter) {
     throw new Error("Starter not found or unauthorized");

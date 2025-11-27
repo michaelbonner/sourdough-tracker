@@ -1,8 +1,7 @@
+import { AuthButtons } from "./components/AuthButtons";
 import "./globals.css";
-
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { AuthButtons, LoginForm, SignUpForm } from "./components/AuthButtons";
 import Link from "next/link";
 
 const geistSans = Geist({

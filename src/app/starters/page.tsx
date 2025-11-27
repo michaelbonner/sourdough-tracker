@@ -1,14 +1,14 @@
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
-import db from "@/index";
-import { startersTable } from "@/db/schema";
-import { eq } from "drizzle-orm";
-import { redirect } from "next/navigation";
 import { createStarter } from "./actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { startersTable } from "@/db/schema";
+import db from "@/index";
+import { auth } from "@/lib/auth";
+import { eq } from "drizzle-orm";
+import { headers } from "next/headers";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function StartersPage() {
   const session = await auth.api.getSession({
@@ -27,7 +27,7 @@ export default async function StartersPage() {
   return (
     <div className="container mx-auto py-10 px-4">
       <h1 className="text-3xl font-bold mb-6">My Starters</h1>
-      
+
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-10">
         {starters.map((starter) => (
           <Link
@@ -42,7 +42,9 @@ export default async function StartersPage() {
           </Link>
         ))}
         {starters.length === 0 && (
-            <p className="text-zinc-500 col-span-full">No starters found. Create one below!</p>
+          <p className="text-zinc-500 col-span-full">
+            No starters found. Create one below!
+          </p>
         )}
       </div>
 
@@ -51,7 +53,13 @@ export default async function StartersPage() {
         <form action={createStarter} className="space-y-4">
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label htmlFor="name">Starter Name</Label>
-            <Input type="text" id="name" name="name" placeholder="e.g. Doughy" required />
+            <Input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="e.g. Doughy"
+              required
+            />
           </div>
           <Button type="submit">Create Starter</Button>
         </form>

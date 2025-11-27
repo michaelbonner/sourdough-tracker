@@ -1,3 +1,4 @@
+import { addStarterLog } from "./actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,7 +10,6 @@ import { and, desc, eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import { addStarterLog } from "./actions";
 
 export default async function StarterDetailsPage({
   params,
@@ -34,8 +34,8 @@ export default async function StarterDetailsPage({
     .where(
       and(
         eq(startersTable.id, starterId),
-        eq(startersTable.userId, session.user.id)
-      )
+        eq(startersTable.userId, session.user.id),
+      ),
     );
 
   if (!starter) {
