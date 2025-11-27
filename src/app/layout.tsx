@@ -17,6 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Sourdough Tracker",
   description: "Track your sourdough bread baking progress",
+  metadataBase: new URL("https://sourdough.bootpack.work"),
 };
 
 export default function RootLayout({
