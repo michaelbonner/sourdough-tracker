@@ -14,7 +14,7 @@ export const AuthButtons = () => {
 
   if (data) {
     return (
-      <div>
+      <div className="flex gap-4 items-center">
         Welcome {data?.user?.name}{" "}
         <Button onClick={() => authClient.signOut()}>Log out</Button>
       </div>

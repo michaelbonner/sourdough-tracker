@@ -9,9 +9,26 @@ import {
 
 export const startersTable = pgTable("starters", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  userId: text("userId")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
   name: varchar({ length: 255 }).notNull(),
   createdAt: timestamp().notNull().defaultNow(),
   updatedAt: timestamp().notNull().defaultNow(),
+});
+
+export const starterLogsTable = pgTable("starter_logs", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  starterId: integer("starterId")
+    .notNull()
+    .references(() => startersTable.id, { onDelete: "cascade" }),
+  date: timestamp("date").notNull().defaultNow(),
+  ratio: text("ratio"),
+  bakedItem: text("bakedItem"),
+  fermentationTime: text("fermentationTime"),
+  notes: text("notes"),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+  updatedAt: timestamp("updatedAt").notNull().defaultNow(),
 });
 
 // Better Auth tables
