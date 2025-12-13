@@ -17,6 +17,7 @@ export async function createStarter(formData: FormData) {
   }
 
   const name = formData.get("name") as string;
+  const notes = formData.get("notes") as string;
 
   if (!name) {
     throw new Error("Name is required");
@@ -24,6 +25,7 @@ export async function createStarter(formData: FormData) {
 
   await db.insert(startersTable).values({
     name,
+    notes: notes || null,
     userId: session.user.id,
   });
 
@@ -40,6 +42,7 @@ export async function renameStarter(starterId: number, formData: FormData) {
   }
 
   const name = formData.get("name") as string;
+  const notes = formData.get("notes") as string;
 
   if (!name) {
     throw new Error("Name is required");
@@ -47,7 +50,7 @@ export async function renameStarter(starterId: number, formData: FormData) {
 
   await db
     .update(startersTable)
-    .set({ name })
+    .set({ name, notes: notes || null })
     .where(
       and(
         eq(startersTable.id, starterId),

@@ -2,6 +2,7 @@ import { createStarter } from "./actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { startersTable } from "@/db/schema";
 import db from "@/index";
 import { auth } from "@/lib/auth";
@@ -59,6 +60,15 @@ export default async function StartersPage() {
               name="name"
               placeholder="e.g. Doughy"
               required
+            />
+          </div>
+          <div className="grid w-full max-w-sm items-center gap-1.5">
+            <Label htmlFor="notes">Notes</Label>
+            <Textarea
+              id="notes"
+              name="notes"
+              placeholder="Add any notes about this starter..."
+              rows={3}
             />
           </div>
           <Button type="submit">Create Starter</Button>

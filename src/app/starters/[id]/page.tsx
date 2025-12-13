@@ -12,16 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
 import { StarterLogItem } from "@/components/starter-log-item";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { EditStarterDialog } from "@/components/edit-starter-dialog";
 
 export default async function StarterDetailsPage({
   params,
@@ -61,8 +52,6 @@ export default async function StarterDetailsPage({
     .orderBy(desc(starterLogsTable.date));
 
   const addLogWithId = addStarterLog.bind(null, starterId);
-  const renameStarterWithId = renameStarter.bind(null, starterId);
-  const deleteStarterWithId = deleteStarter.bind(null, starterId);
 
   return (
     <div className="container mx-auto py-10 px-4">
@@ -76,46 +65,23 @@ export default async function StarterDetailsPage({
           </Link>
           <div className="flex items-center gap-2">
             <h1 className="text-3xl font-bold">{starter.name}</h1>
-            <Dialog>
-              <form>
-                <DialogTrigger asChild>
-                  <Button variant="outline">Edit</Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                  <DialogHeader>
-                    <DialogTitle>Edit profile</DialogTitle>
-                    <DialogDescription>
-                      Make changes to your profile here. Click save when
-                      you&apos;re done.
-                    </DialogDescription>
-                  </DialogHeader>
-
-                  <form action={renameStarterWithId} className="flex gap-2">
-                    <Input
-                      name="name"
-                      placeholder="New Name"
-                      className="w-40"
-                      required
-                      defaultValue={starter.name}
-                    />
-                    <Button type="submit" variant="outline">
-                      Rename
-                    </Button>
-                  </form>
-                  <div className="flex justify-end mt-8">
-                    <form action={deleteStarterWithId}>
-                      <Button type="submit" variant="destructive">
-                        Delete
-                      </Button>
-                    </form>
-                  </div>
-                </DialogContent>
-              </form>
-            </Dialog>
+            <EditStarterDialog
+              starterId={starterId}
+              starterName={starter.name}
+              starterNotes={starter.notes}
+              renameStarter={renameStarter}
+              deleteStarter={deleteStarter}
+            />
           </div>
           <p className="text-zinc-500">
             Created: {new Date(starter.createdAt).toLocaleDateString()}
           </p>
+          {starter.notes && (
+            <div className="mt-4 p-4 bg-zinc-50 rounded-lg border border-zinc-200">
+              <h3 className="text-sm font-semibold text-zinc-700 mb-1">Notes</h3>
+              <p className="text-zinc-600 whitespace-pre-wrap">{starter.notes}</p>
+            </div>
+          )}
         </div>
       </div>
 

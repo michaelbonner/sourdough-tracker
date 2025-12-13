@@ -13,6 +13,7 @@ export const startersTable = pgTable("starters", {
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   name: varchar({ length: 255 }).notNull(),
+  notes: text("notes"),
   createdAt: timestamp().notNull().defaultNow(),
   updatedAt: timestamp().notNull().defaultNow(),
 });
