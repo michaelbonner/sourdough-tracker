@@ -1,5 +1,6 @@
 "use client";
 
+import { LucideChartLine } from "lucide-react";
 import Link from "next/link";
 
 export function SiteFooter() {
@@ -9,7 +10,7 @@ export function SiteFooter() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white">
-              <span className="material-icons text-lg">insights</span>
+              <LucideChartLine className="text-lg" />
             </div>
             <span className="text-lg font-bold tracking-tight text-stone-900 dark:text-white uppercase">
               Sourdough Tracker
@@ -29,9 +30,7 @@ export function SiteFooter() {
               Terms of Service
             </Link>
           </div>
-          <div className="text-xs text-stone-400">
-            © 2026 Michael Bonner
-          </div>
+          <div className="text-xs text-stone-400">© 2026 Michael Bonner</div>
         </div>
       </div>
     </footer>

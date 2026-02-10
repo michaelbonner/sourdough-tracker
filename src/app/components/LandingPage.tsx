@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import {
   Dialog,
   DialogContent,
@@ -9,6 +8,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  LucideArchive,
+  LucideChartLine,
+  LucideFlaskConical,
+  LucideZap,
+} from "lucide-react";
+import Link from "next/link";
 import { LoginForm, SignUpForm } from "./AuthButtons";
 
 interface LandingPageProps {
@@ -22,7 +28,7 @@ export default function LandingPage({ session }: LandingPageProps) {
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-5 space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-              <span className="material-icons text-primary text-sm">science</span>
+              <LucideFlaskConical className="text-primary text-sm" />
               <span className="text-xs font-bold uppercase tracking-wider text-primary">
                 Precision Fermentation Laboratory
               </span>
@@ -69,7 +75,6 @@ export default function LandingPage({ session }: LandingPageProps) {
                   </DialogContent>
                 </Dialog>
               )}
-
             </div>
           </div>
           <div className="lg:col-span-7 relative">
@@ -150,9 +155,7 @@ export default function LandingPage({ session }: LandingPageProps) {
             </div>
             <div className="absolute -bottom-4 -right-4 bg-white dark:bg-stone-800 p-4 rounded-lg shadow-xl border border-primary/20 max-w-[220px]">
               <div className="flex items-center gap-3 mb-1">
-                <span className="material-icons text-primary text-sm">
-                  bolt
-                </span>
+                <LucideZap className="text-primary text-sm" />
                 <span className="text-xs font-bold uppercase tracking-tighter">
                   Activity Peak Detected
                 </span>
@@ -176,9 +179,7 @@ export default function LandingPage({ session }: LandingPageProps) {
           <div className="grid md:grid-cols-3 gap-8">
             <div className="group p-10 bg-white dark:bg-stone-800 rounded-xl border border-stone-100 dark:border-stone-700 hover:border-primary transition-all shadow-sm">
               <div className="w-14 h-14 bg-stone-100 dark:bg-stone-700 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                <span className="material-icons text-stone-500 group-hover:text-white">
-                  science
-                </span>
+                <LucideFlaskConical className="text-stone-500 group-hover:text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4">Feed Kinetics</h3>
               <p className="text-stone-600 dark:text-stone-400 leading-relaxed text-sm">
@@ -189,9 +190,7 @@ export default function LandingPage({ session }: LandingPageProps) {
             </div>
             <div className="group p-10 bg-white dark:bg-stone-800 rounded-xl border border-stone-100 dark:border-stone-700 hover:border-primary transition-all shadow-sm">
               <div className="w-14 h-14 bg-stone-100 dark:bg-stone-700 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                <span className="material-icons text-stone-500 group-hover:text-white">
-                  inventory
-                </span>
+                <LucideArchive className="text-stone-500 group-hover:text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4">Bake Matrix</h3>
               <p className="text-stone-600 dark:text-stone-400 leading-relaxed text-sm">
@@ -202,9 +201,7 @@ export default function LandingPage({ session }: LandingPageProps) {
             </div>
             <div className="group p-10 bg-white dark:bg-stone-800 rounded-xl border border-stone-100 dark:border-stone-700 hover:border-primary transition-all shadow-sm">
               <div className="w-14 h-14 bg-stone-100 dark:bg-stone-700 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                <span className="material-icons text-stone-500 group-hover:text-white">
-                  analytics
-                </span>
+                <LucideChartLine className="text-stone-500 group-hover:text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4">Stats Engine</h3>
               <p className="text-stone-600 dark:text-stone-400 leading-relaxed text-sm">
@@ -216,9 +213,6 @@ export default function LandingPage({ session }: LandingPageProps) {
           </div>
         </div>
       </section>
-
-
-
     </>
   );
 }

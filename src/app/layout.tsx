@@ -1,4 +1,3 @@
-
 import "./globals.css";
 
 import type { Metadata } from "next";
@@ -15,7 +14,8 @@ const workSans = Work_Sans({
 
 export const metadata: Metadata = {
   title: "Sourdough Tracker | Precision Sourdough Analytics",
-  description: "Track your sourdough bread baking progress with granular precision.",
+  description:
+    "Track your sourdough bread baking progress with granular precision.",
   metadataBase: new URL("https://sourdough.bootpack.work"),
 };
 
@@ -27,22 +27,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link
-          href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-          rel="stylesheet"
-        />
+        <link rel="icon" href="/favicon.ico" />
       </head>
       <body
         className={`${workSans.variable} font-display bg-background-light dark:bg-background-dark text-stone-800 dark:text-stone-200 antialiased`}
       >
         <SiteHeader />
-        <main className="min-h-screen">
-          {children}
-        </main>
+        <main className="min-h-screen">{children}</main>
         <SiteFooter />
         <Toaster />
       </body>
