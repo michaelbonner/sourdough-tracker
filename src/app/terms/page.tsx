@@ -33,9 +33,9 @@ export default function TermsOfService() {
         <h2>4. User Content</h2>
         <p>
           You retain ownership of the data and content you input into the
-          service ("User Content"). By submitting User Content, you grant us a
-          license to use, store, and display your content solely for the purpose
-          of providing the service to you.
+          service (&quot;User Content&quot;). By submitting User Content, you
+          grant us a license to use, store, and display your content solely for
+          the purpose of providing the service to you.
         </p>
 
         <h2>5. Prohibited Conduct</h2>

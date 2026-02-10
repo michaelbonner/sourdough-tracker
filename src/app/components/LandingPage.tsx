@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -13,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LoginForm, SignUpForm } from "./AuthButtons";
 
 interface LandingPageProps {
-  session: any; // Type as needed, probably Session | null
+  session: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 export default function LandingPage({ session }: LandingPageProps) {
@@ -183,9 +182,9 @@ export default function LandingPage({ session }: LandingPageProps) {
               </div>
               <h3 className="text-2xl font-bold mb-4">Feed Kinetics</h3>
               <p className="text-stone-600 dark:text-stone-400 leading-relaxed text-sm">
-                Quantify your starter's metabolic rate. Log hydration ratios
-                down to 0.1g and correlate peak timing with ambient thermal
-                fluctuations.
+                Quantify your starter&apos;s metabolic rate. Log hydration
+                ratios down to 0.1g and correlate peak timing with ambient
+                thermal fluctuations.
               </p>
             </div>
             <div className="group p-10 bg-white dark:bg-stone-800 rounded-xl border border-stone-100 dark:border-stone-700 hover:border-primary transition-all shadow-sm">
