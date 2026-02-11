@@ -18,7 +18,7 @@ export default function PrivacyPolicy() {
         <h2>2. Data We Collect</h2>
         <p>
           We may collect, use, store, and transfer different kinds of personal
-          data about you which we have grouped together follows:
+          data about you which we have grouped together as follows:
         </p>
         <ul className="list-disc pl-6">
           <li>
@@ -78,7 +78,14 @@ export default function PrivacyPolicy() {
         <h2>6. Contact Us</h2>
         <p>
           If you have any questions about this privacy policy or our privacy
-          practices, please contact us.
+          practices, please contact us at{" "}
+          <a
+            href="mailto:privacy@bootpack.work"
+            className="text-primary hover:underline"
+          >
+            privacy@bootpack.work
+          </a>
+          .
         </p>
       </section>
     </div>

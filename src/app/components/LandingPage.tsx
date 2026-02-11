@@ -44,10 +44,11 @@ export default function LandingPage({ session }: LandingPageProps) {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               {session ? (
-                <Link href="/starters">
-                  <button className="bg-primary text-white px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl shadow-primary/30">
-                    Launch Dashboard
-                  </button>
+                <Link
+                  href="/starters"
+                  className="bg-primary text-white px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl shadow-primary/30 inline-block text-center"
+                >
+                  Launch Dashboard
                 </Link>
               ) : (
                 <Dialog>
@@ -69,7 +70,7 @@ export default function LandingPage({ session }: LandingPageProps) {
                         <LoginForm />
                       </TabsContent>
                       <TabsContent value="signup">
-                        <SignUpForm />
+                        <SignUpForm callbackURL="/starters" />
                       </TabsContent>
                     </Tabs>
                   </DialogContent>
@@ -77,7 +78,7 @@ export default function LandingPage({ session }: LandingPageProps) {
               )}
             </div>
           </div>
-          <div className="lg:col-span-7 relative">
+          <div className="lg:col-span-7 relative overflow-hidden">
             <div className="bg-stone-900 rounded-2xl shadow-2xl border border-stone-800 overflow-hidden">
               <div className="border-b border-stone-800 p-4 flex items-center justify-between">
                 <div className="flex gap-2">
@@ -206,7 +207,7 @@ export default function LandingPage({ session }: LandingPageProps) {
               <h3 className="text-2xl font-bold mb-4">Stats Engine</h3>
               <p className="text-stone-600 dark:text-stone-400 leading-relaxed text-sm">
                 Generate multi-dimensional charts correlating variables.
-                identify the precise causality behind crumb structure, crust
+                Identify the precise causality behind crumb structure, crust
                 Maillard reaction, and flavor profiles.
               </p>
             </div>

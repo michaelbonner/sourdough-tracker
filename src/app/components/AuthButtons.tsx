@@ -125,7 +125,7 @@ export const LoginForm = () => {
   );
 };
 
-export const SignUpForm = () => {
+export const SignUpForm = ({ callbackURL }: { callbackURL?: string }) => {
   return (
     <form
       className="grid gap-4"
@@ -137,6 +137,7 @@ export const SignUpForm = () => {
           name: formData.get("name") as string,
           email: formData.get("email") as string,
           password: formData.get("password") as string,
+          callbackURL,
         });
 
         if (result.error) {
