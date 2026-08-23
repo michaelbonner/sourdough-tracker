@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "db:migrate": "drizzle-kit migrate",
+    "start": "bun run db:migrate && next start",
     "lint": "eslint"
   },
   "dependencies": {
