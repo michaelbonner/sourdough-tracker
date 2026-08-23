@@ -46,8 +46,7 @@ RUN DATABASE_URL=postgresql://build:build@127.0.0.1:5432/build \
 
 # =====================================================================
 # Runtime — `output: "standalone"` (see next.config) emits server.js plus only
-# the dependencies Next traced as reachable, so the runtime stage does not need
-# node_modules at all.
+# the dependencies Next traced as reachable.
 # =====================================================================
 FROM ${NODE_IMAGE} AS runtime
 WORKDIR /app
@@ -62,11 +61,12 @@ ENV NODE_ENV=production \
 # Next writes into .next at runtime.
 COPY --from=build --chown=node:node /app/.next/standalone ./
 COPY --from=build --chown=node:node /app/.next/static ./.next/static
+COPY --from=build --chown=node:node /app/drizzle ./drizzle
+COPY --from=build --chown=node:node /app/scripts/migrate.mjs ./scripts/migrate.mjs
 USER node
 
 EXPOSE 3000
 
-# Serve only — the same thing railpack did. `drizzle-kit` schema management is still run by hand
-# against this app's database; nothing migrates on boot, so a deploy can never
-# change the schema on its own.
-CMD ["node", "server.js"]
+# Apply committed migrations before accepting traffic. A migration failure keeps
+# the app from starting with code and schema out of sync.
+CMD ["sh", "-c", "node scripts/migrate.mjs && exec node server.js"]

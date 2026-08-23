@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "db:migrate": "drizzle-kit migrate",
-    "start": "bun run db:migrate && next start",
+    "db:migrate": "node --env-file-if-exists=.env scripts/migrate.mjs",
+    "start": "node --env-file-if-exists=.env scripts/migrate.mjs && next start",
     "lint": "eslint"
   },
   "dependencies": {

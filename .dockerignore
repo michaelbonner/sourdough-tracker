@@ -21,7 +21,7 @@ bunfig.toml
 
 # Infra & tooling that runs in CI or locally, never in the image.
 # scripts/dokploy-preview.mjs only ever runs on a GitHub runner.
-scripts
+scripts/dokploy-preview.mjs
 docker-compose.yml
 Dockerfile
 .dockerignore
