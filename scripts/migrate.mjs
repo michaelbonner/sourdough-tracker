@@ -17,9 +17,30 @@ if (!journal || !Array.isArray(journal.entries)) {
   throw new Error("The Drizzle migration journal is invalid.");
 }
 
+const migrations = [];
+
+for (const entry of journal.entries) {
+  if (typeof entry.tag !== "string" || typeof entry.when !== "number") {
+    throw new Error("The Drizzle migration journal contains an invalid entry.");
+  }
+
+  const sql = await readFile(new URL(`${entry.tag}.sql`, migrationsFolder), "utf8");
+  migrations.push({
+    hash: createHash("sha256").update(sql).digest("hex"),
+    sql,
+    tag: entry.tag,
+    when: entry.when,
+  });
+}
+
+if (migrations.length === 0) {
+  throw new Error("The Drizzle migration journal is empty.");
+}
+
 const client = new pg.Client({ connectionString: databaseUrl });
 
 try {
+  console.info(JSON.stringify({ event: "database_migrations_started" }));
   await client.connect();
   await client.query("BEGIN");
   await client.query(
@@ -37,29 +58,74 @@ try {
   const result = await client.query(
     'SELECT created_at FROM "drizzle"."__drizzle_migrations" ORDER BY created_at DESC LIMIT 1',
   );
-  const lastMigration = Number(result.rows[0]?.created_at ?? 0);
+  let lastMigration = Number(result.rows[0]?.created_at ?? 0);
 
-  for (const entry of journal.entries) {
-    if (typeof entry.tag !== "string" || typeof entry.when !== "number") {
-      throw new Error("The Drizzle migration journal contains an invalid entry.");
+  if (lastMigration === 0) {
+    const initialTables = [
+      "account",
+      "session",
+      "starter_logs",
+      "starters",
+      "user",
+      "verification",
+    ];
+    const existingTablesResult = await client.query(
+      `
+        SELECT table_name
+        FROM information_schema.tables
+        WHERE table_schema = 'public' AND table_name = ANY($1::text[])
+      `,
+      [initialTables],
+    );
+    const existingTables = new Set(
+      existingTablesResult.rows.map((row) => row.table_name),
+    );
+
+    if (existingTables.size > 0) {
+      const missingTables = initialTables.filter((table) => !existingTables.has(table));
+
+      if (missingTables.length > 0) {
+        throw new Error(
+          `Cannot baseline the initial migration because these tables are missing: ${missingTables.join(", ")}`,
+        );
+      }
+
+      const initialMigration = migrations[0];
+      await client.query(
+        'INSERT INTO "drizzle"."__drizzle_migrations" (hash, created_at) VALUES ($1, $2)',
+        [initialMigration.hash, initialMigration.when],
+      );
+      lastMigration = initialMigration.when;
+      console.info(
+        JSON.stringify({
+          event: "database_migration_baselined",
+          migration: initialMigration.tag,
+        }),
+      );
     }
+  }
 
-    if (entry.when <= lastMigration) continue;
+  for (const migration of migrations) {
+    if (migration.when <= lastMigration) continue;
 
-    const sql = await readFile(new URL(`${entry.tag}.sql`, migrationsFolder), "utf8");
-
-    for (const statement of sql.split("--> statement-breakpoint")) {
+    for (const statement of migration.sql.split("--> statement-breakpoint")) {
       if (statement.trim()) await client.query(statement);
     }
 
-    const hash = createHash("sha256").update(sql).digest("hex");
     await client.query(
       'INSERT INTO "drizzle"."__drizzle_migrations" (hash, created_at) VALUES ($1, $2)',
-      [hash, entry.when],
+      [migration.hash, migration.when],
+    );
+    console.info(
+      JSON.stringify({
+        event: "database_migration_applied",
+        migration: migration.tag,
+      }),
     );
   }
 
   await client.query("COMMIT");
+  console.info(JSON.stringify({ event: "database_migrations_complete" }));
 } catch (error) {
   await client.query("ROLLBACK").catch(() => undefined);
   throw error;
